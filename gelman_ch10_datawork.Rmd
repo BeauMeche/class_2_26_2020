@@ -30,7 +30,10 @@ x <- nes %>%
   select(year, partyid7, real_ideo, race_adj, 
          age_discrete, educ1, female, income) %>% 
   drop_na() %>% 
-  mutate_at(3:8, as.factor)
+  mutate_at(4:8, as.factor) %>% 
+  mutate(race = as.factor(case_when(race_adj == 1 ~ "white",
+                                    race_adj == 2 ~ "black",
+                                    TRUE ~ "other")))
 
 # summary(x)
 # skim(x)
@@ -45,8 +48,47 @@ fit1 <- stan_glm(partyid7 ~ female, data = x, refresh = 0)
 
 print(fit1)
 
-# quantile(fit1, c(.025, .975))
+#quantile(fit1, c(.025, .975))
 
 ```
+
+```{r predictions_01, echo=FALSE}
+
+x %>% 
+  group_by(female) %>% 
+  mutate(test1 = ifelse(partyid7 <= (3.9+2.1) & partyid7 >= (3.9-2.1), TRUE, FALSE)) %>% 
+  summarise(mean(test1))
+
+x %>% 
+  mutate(pred = predict(fit1, x)) %>% 
+  select(partyid7, female, pred) %>% 
+  group_by(female) %>% 
+  summarise(round(mean(pred), 2))
+
+summary(x)
+
+fit2 <- stan_glm(data = x, partyid7 ~ race, refresh = 0)
+
+print(fit2)
+
+x %>% 
+  mutate(pred2 = predict(fit2, x)) %>%  
+  select(partyid7, race, pred2, female) %>% 
+  group_by(race, female) %>% 
+  summarize(round(mean(pred2), 2))
+
+x %>% select(partyid7, real_ideo) %>% 
+  summary()
+
+fit3 <- stan_glm(partyid7 ~ real_ideo, data = x, refresh = 0)
+
+print(fit3)
+
+x %>% 
+  mutate(pred3 = predict(fit3, x)) %>% 
+  select(partyid7, real_ideo, pred3, female)
+
+```
+
 
 

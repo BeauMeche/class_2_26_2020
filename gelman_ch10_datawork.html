@@ -386,6 +386,96 @@ summary {
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
 ## * For info on the priors used see ?prior_summary.stanreg</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   female `mean(test1)`
+##   &lt;fct&gt;          &lt;dbl&gt;
+## 1 0              0.705
+## 2 1              0.676</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   female `round(mean(pred), 2)`
+##   &lt;fct&gt;                   &lt;dbl&gt;
+## 1 0                        3.89
+## 2 1                        3.7</code></pre>
+<pre><code>##       year         partyid7      real_ideo     race_adj    age_discrete
+##  Min.   :1972   Min.   :1.00   Min.   :1.000   1  :13900   1:3664      
+##  1st Qu.:1978   1st Qu.:2.00   1st Qu.:3.000   1.5: 1180   2:5704      
+##  Median :1986   Median :3.00   Median :4.000   2  : 1510   3:4710      
+##  Mean   :1985   Mean   :3.79   Mean   :4.254               4:2512      
+##  3rd Qu.:1992   3rd Qu.:6.00   3rd Qu.:5.000                           
+##  Max.   :2000   Max.   :7.00   Max.   :7.000                           
+##  educ1    female   income      race      
+##  1: 974   0:7929   1:1937   black: 1510  
+##  2:6797   1:8661   2:2350   other: 1180  
+##  3:4340            3:5686   white:13900  
+##  4:4479            4:5474                
+##                    5:1143                
+## </code></pre>
+<pre><code>## stan_glm
+##  family:       gaussian [identity]
+##  formula:      partyid7 ~ race
+##  observations: 16590
+##  predictors:   3
+## ------
+##             Median MAD_SD
+## (Intercept) 2.1    0.1   
+## raceother   1.3    0.1   
+## racewhite   1.9    0.1   
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 2.0    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg</code></pre>
+<pre><code>## # A tibble: 6 x 3
+## # Groups:   race [3]
+##   race  female `round(mean(pred2), 2)`
+##   &lt;fct&gt; &lt;fct&gt;                    &lt;dbl&gt;
+## 1 black 0                         2.12
+## 2 black 1                         2.12
+## 3 other 0                         3.43
+## 4 other 1                         3.43
+## 5 white 0                         4   
+## 6 white 1                         4</code></pre>
+<pre><code>##     partyid7      real_ideo    
+##  Min.   :1.00   Min.   :1.000  
+##  1st Qu.:2.00   1st Qu.:3.000  
+##  Median :3.00   Median :4.000  
+##  Mean   :3.79   Mean   :4.254  
+##  3rd Qu.:6.00   3rd Qu.:5.000  
+##  Max.   :7.00   Max.   :7.000</code></pre>
+<pre><code>## stan_glm
+##  family:       gaussian [identity]
+##  formula:      partyid7 ~ real_ideo
+##  observations: 16590
+##  predictors:   2
+## ------
+##             Median MAD_SD
+## (Intercept) 1.0    0.1   
+## real_ideo   0.7    0.0   
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 1.9    0.0   
+## 
+## ------
+## * For help interpreting the printed output see ?print.stanreg
+## * For info on the priors used see ?prior_summary.stanreg</code></pre>
+<pre><code>## # A tibble: 16,590 x 4
+##    partyid7 real_ideo pred3 female
+##       &lt;int&gt;     &lt;int&gt; &lt;dbl&gt; &lt;fct&gt; 
+##  1        6         5  4.29 0     
+##  2        6         5  4.29 1     
+##  3        7         6  4.95 0     
+##  4        2         4  3.62 0     
+##  5        6         5  4.29 1     
+##  6        2         5  4.29 1     
+##  7        7         7  5.61 1     
+##  8        5         5  4.29 0     
+##  9        7         6  4.95 1     
+## 10        3         4  3.62 0     
+## # ... with 16,580 more rows</code></pre>
 
 
 
