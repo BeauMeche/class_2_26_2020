@@ -1,0 +1,52 @@
+---
+title: "class_nes_data"
+author: "Beau Meche"
+date: "2/26/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(rstanarm)
+library(skimr)
+```
+
+```{r stuff_and_things, echo=FALSE}
+
+load("nes.rda")
+
+# summary(nes)
+
+
+# we will focus on: year, partyid7, real_ideo, race_adj, age_discrete, educ1, female, income
+```
+
+```{r more_stuff, echo=FALSE}
+
+x <- nes %>% 
+  as_tibble() %>% 
+  select(year, partyid7, real_ideo, race_adj, 
+         age_discrete, educ1, female, income) %>% 
+  drop_na() %>% 
+  mutate_at(3:8, as.factor)
+
+# summary(x)
+# skim(x)
+
+# x %>%
+#   group_by(year) %>% 
+#   summarise(sum(is.na(real_ideo))) %>% 
+#   ggplot(aes(x = year, y = sum(is.na(real_ideo))))
+
+
+fit1 <- stan_glm(partyid7 ~ female, data = x, refresh = 0)
+
+print(fit1)
+
+# quantile(fit1, c(.025, .975))
+
+```
+
+
